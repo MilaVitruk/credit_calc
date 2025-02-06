@@ -1,0 +1,23 @@
+{% extends 'credit/base.html' %}
+
+{% block title %}
+Loans
+{% endblock %}
+
+
+
+{% block body %}
+<h1>You have {{ loans|length }} loans:</h1>
+
+{% if loans %}
+<div>
+    {% for loan in loans %}
+    <div>
+        <p>{{ loan.title }} you need to make payment {{ loan.num_of_payments }} times</p>
+    </div>
+    {% endfor %}
+</div>
+{% else %}
+No loans were selected
+{% endif %}
+{% endblock %}

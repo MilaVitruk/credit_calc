@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>
+        {% block title %}
+        Base Title
+        {% endblock %}
+        </title>
+
+        <style>
+        header {height: 100px;
+                padding: 0, 40px;
+                background-color: #edeff4;
+                font-family: 'Roboto', sans-serif;
+        }
+        header > div {display: flex;
+                        justify-content: right;
+                        align-items: center;
+                        margin-right: 30px;
+        }
+
+    </style>
+</head>
+
+
+<body>
+
+<header>
+    <div class="fixed-container">
+        <div class="links_line">
+            {% if user.is_authenticated %}
+            Welcome, {{ user.username}}!
+            <p><a href="#">logout</a></p>
+            {% else %}
+            <a href="#">login</a>
+            <a href="#">register</a>
+            {% endif %}
+        </div>
+    </div>
+</header>
+{% block body %}
+
+{% endblock %}
+
+</body>
+</html>
