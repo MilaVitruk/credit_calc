@@ -11,13 +11,24 @@ Loans
 
 {% if loans %}
 <div>
+    <ol>
     {% for loan in loans %}
     <div>
-        <p>{{ loan.title }} you need to make payment {{ loan.num_of_payments }} times</p>
+        <li>
+            <p><b>{{ loan.title }}</b></p>
+            <p>You need to make payment {{ loan.num_of_payments }} times,
+                payment every month is {{ loan.payment_per_month }}  rub,
+                total_amount = {{ loan.total_amount }},
+                overpay = {{ loan.overpay }}</p>
+        </li>
     </div>
     {% endfor %}
+    </ol>
 </div>
 {% else %}
 No loans were selected
 {% endif %}
+    <footer>
+        <a href="{% url 'credit:add_loan' %}">Add new loan</a>
+    </footer>
 {% endblock %}

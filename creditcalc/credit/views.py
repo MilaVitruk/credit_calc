@@ -1,7 +1,10 @@
 from django.http import HttpResponse, HttpRequest
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
 from credit.models import Loan, Loan_details
+from django.urls import reverse
+
+from .forms import LoanCreationForm
 
 # import credit.urls.urlpatterns as urls
 def count_num_of_payments(object) -> int:
@@ -14,17 +17,50 @@ def count_num_of_payments(object) -> int:
         months_amount += 1
     return months_amount
 
+def count_payment_every_month(object):
+    # расчет месячной процентной ставки
+    if object.num_of_payments:
+        monthly_rate = object.rate / (12 * 100)
+        k_ann = (monthly_rate*(1+monthly_rate) ** object.num_of_payments)/(((1 + monthly_rate) ** object.num_of_payments) - 1)
+        payment_per_month = object.amount * k_ann
+        return round(payment_per_month, 2)
+    else:
+        return 0
+
+def count_total_amount(object):
+    return object.payment_per_month * object.num_of_payments
+
+
 
 def credit_homepage(request: HttpRequest):
     # context = {'links': urls}
     # print(urls)
     return render(request, 'credit/homepage.html')
 
-def loans_list(request: HttpRequest):
+def loans_list(request: HttpRequest) -> HttpResponse:
     context = {
         'loans': Loan.objects.all(),
     }
     for loan in context['loans']:
         loan.num_of_payments = count_num_of_payments(loan)
+        loan.payment_per_month = count_payment_every_month(loan)
+        loan.total_amount = count_total_amount(loan)
+        loan.overpay = loan.total_amount - loan.amount
 
     return render(request, 'credit/loans-list.html', context=context)
+
+def create_loan(request: HttpRequest) -> HttpResponse:
+    if request.method == 'POST':
+        form = LoanCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            url = reverse('credit:loans_list')
+            return redirect(url)
+    else:
+        form = LoanCreationForm()
+
+    context = {
+        'form': form,
+    }
+
+    return render(request, 'credit/loan-creation-form.html', context=context)

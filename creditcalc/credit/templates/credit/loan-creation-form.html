@@ -1,0 +1,22 @@
+{% extends 'credit/base.html' %}
+
+{% block title %}
+Add new loan
+{% endblock %}
+
+{% block body %}
+<h1> Add new loan </h1>
+<div>
+    <form method="post">
+        {% csrf_token %}
+        {{ form }}
+        <button type="submit">
+            Add
+        </button>
+    </form>
+    <footer>
+        <a href="{% url 'credit:loans_list' %}">Back to loans list</a>
+    </footer>
+</div>
+
+{% endblock %}

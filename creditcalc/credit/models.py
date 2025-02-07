@@ -22,6 +22,8 @@ class Loan(models.Model):
     dur = convert_to_timedalta('00:00:00')
     term = models.DurationField(default=dur)
     num_of_payments = models.IntegerField(default=0)
+    payment_per_month = models.DecimalField(default=0, max_digits=10, decimal_places=2)
+    total_amount = models.DecimalField(decimal_places=2, max_digits=10, null=True)
 
 
 class Loan_details(models.Model):
