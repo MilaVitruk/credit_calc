@@ -6,27 +6,52 @@
         {% block title %}
         Base Title
         {% endblock %}
-        </title>
+    </title>
 
-        <style>
-        header {height: 100px;
-                padding: 0, 40px;
-                background-color: #edeff4;
-                font-family: 'Roboto', sans-serif;
-        }
-        header > div {display: flex;
-                        justify-content: right;
-                        align-items: center;
-                        margin-right: 30px;
-        }
+    <style>
 
-        body > div > form {
+        .fixed-container{
+        height: 100px;
+        width: 100%;
         display: flex;
-        justify-content: right;
+        justify-content: space-between;
+        align-items: center;
 
+
+background:
+linear-gradient(225deg, transparent 24.5%, #449CB4 24.6%, transparent 24.8%) 37px -37px,
+linear-gradient(135deg, transparent 24.5%, #449CB4 24.6%, transparent 24.8%) 37px 111px,
+linear-gradient(135deg, transparent 24.5%, #449CB4 24.6%, transparent 24.8%) 37px 37px,
+linear-gradient(225deg, transparent 24.5%, #449CB4 24.6%, transparent 24.8%) 37px 37px,
+linear-gradient(135deg, transparent 24.5%, #449CB4 24.6%, transparent 24.8%) 74px 0px,
+linear-gradient(225deg, transparent 24.5%, #449CB4 24.6%, transparent 24.8%) 74px 0px,
+linear-gradient(135deg, transparent 24.5%, #449CB4 24.6%, transparent 24.8%) 74px 74px,
+linear-gradient(225deg, transparent 24.5%, #449CB4 24.6%, transparent 24.8%) 74px 74px;
+background-size: 148px 148px;
+background-color: #E9EFF6;
+        }
+
+        .menu{
+        width: 100px;
+        }
+
+        .add-loan-container{
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
         }
 
 
+        .add-loan-container > div > form > div > input {
+        width: 100%;
+        padding: 0 20px;
+        margin-bottom: 10px;
+        background: #E9EFF6;
+        line-height: 40px;
+        border-width: 0;
+        border-radius: 20px;
+        font-family: 'Roboto', sans-serif;
+        }
     </style>
 </head>
 
@@ -35,6 +60,7 @@
 
 <header>
     <div class="fixed-container">
+        <div class="menu">Menu will be here soon</div>
         <div class="links_line">
             {% if user.is_authenticated %}
             Welcome, {{ user.username}}!
@@ -44,8 +70,12 @@
             <a href="#">register</a>
             {% endif %}
         </div>
+
+
+
     </div>
 </header>
+
 {% block body %}
 
 {% endblock %}

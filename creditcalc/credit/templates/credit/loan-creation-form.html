@@ -6,9 +6,9 @@ Add new loan
 {% endblock %}
 
 {% block body %}
-<h1> Add new loan </h1>
-<div>
+<div class="add-loan-container" >
     <div>
+        <h1> Add new loan </h1>
             <form method="post">
         {% csrf_token %}
         {{ form }}
@@ -20,14 +20,12 @@ Add new loan
         </button>
     </form>
     </div>
-
     <div>
         Graphic block will be here soon
     </div>
-
-    <footer>
-        <a href="{% url 'credit:loans_list' %}">Back to loans list</a>
-    </footer>
 </div>
+<footer>
+        <a href="{% url 'credit:loans_list' %}">Back to loans list</a>
+</footer>
 
 {% endblock %}
